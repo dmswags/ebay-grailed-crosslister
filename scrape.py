@@ -2,7 +2,9 @@ from configparser import ConfigParser
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
-
+from bs4 import BeautifulSoup
+import os
+import requests
 import sys
 import time
 
@@ -11,7 +13,7 @@ config = ConfigParser()
 config.read("config.ini")
 
 profile_path = r"{}".format(config.get("FIREFOX", "profile_path"))
-print(profile_path)
+# print(profile_path)
 
 # Configure Firefox options
 options = Options()
@@ -28,11 +30,11 @@ print(url)
 # Navigate to listing page
 driver.get(url)
 
-# SCRAPE LISTING PAGE FOR IMPORTANT PRODUCT DETAILS
+# --- SCRAPE LISTING PAGE FOR IMPORTANT PRODUCT DETAILS ---
 attributes = dict()
 
 # Scroll to "bottom" of the webpage
-time.sleep(2)
+time.sleep(3)
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 time.sleep(2)
 
@@ -53,7 +55,3 @@ element = driver.find_element(By.CLASS_NAME, "x-price-primary")
 attributes["price"] = (element.text)[4:]
 
 print(attributes)
-
-driver.close()
- 
-# Unable to Scrape Item Description (iFrame) + Item Specifics (Color, Country of Origin)
