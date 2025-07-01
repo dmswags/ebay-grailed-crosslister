@@ -20,3 +20,6 @@ options.add_argument(profile_path)
 
 # Create instance of Firefox webdriver
 driver = webdriver.Firefox(options=options)
+
+# Navigate to create listing page
+driver.get(url)
